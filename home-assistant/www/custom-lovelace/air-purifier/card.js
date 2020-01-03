@@ -152,6 +152,13 @@ class AirPurifierCard extends LitElement {
     });
   }
 
+  callServiceXiaomi(service, options = {}) {
+    this.hass.callService('xiaomi_miio', service, {
+      entity_id: this.config.entity,
+      ...options
+    });
+  }
+  
   callService(service, options = {}) {
     this.hass.callService('fan', service, {
       entity_id: this.config.entity,
@@ -220,7 +227,7 @@ class AirPurifierCard extends LitElement {
       this.callService('set_speed', { speed: 'Favorite' })
     }, 500)
     setTimeout(() => {
-      this.callService('xiaomi_miio_set_favorite_level', { level })
+      this.callServiceXiaomi('fan_set_favorite_level', { level })
     }, 1000)
   }
 
